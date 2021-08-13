@@ -276,7 +276,7 @@
       }
     },
 	"/lote/modificar": {
-      "post": {
+      "put": {
         "summary": "Permite modificar informacion de un lote",
         "description": "Permite modificar informacion de un lote",
         "operationId": "modificar",        
