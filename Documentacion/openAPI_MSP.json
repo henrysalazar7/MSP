@@ -1,0 +1,618 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "MSP Vacunacion",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url":"http://localhost:8081",
+      "description":"API para Vacunacion MSP"
+    }
+  ],
+  "paths": {
+    "/lote/listarTodo": {
+      "get": {
+        "summary": "Permite listar todos los lotes",
+        "description": "Permite listar todos los lotes",
+        "operationId": "listarTodo",        
+        "tags": [
+          "Lote"
+        ],
+        "parameters": [          
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta de todos los lotes",
+            "headers": {
+              "x-next": {
+                "description": "Respuesta de todos los lotes",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Lote"
+					}                  
+                }
+              }
+            }
+          },
+		  "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "x-next": {
+                "description": "Unauthorized",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+		  "403": {
+            "description": "Forbidden",
+            "headers": {
+              "x-next": {
+                "description": "Forbidden",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+	"/lote/listarInventario": {
+      "get": {
+        "summary": "Permite listar el inventario de vacunas",
+        "description": "Permite listar el inventario de vacunas",
+        "operationId": "listarInventario",        
+        "tags": [
+          "Lote"
+        ],
+        "parameters": [          
+        ],
+        "responses": {
+          "200": {
+            "description": "Respuesta de inventario de vacunas",
+            "headers": {
+              "x-next": {
+                "description": "Respuesta de inventario de vacunas",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/StockVacuna"
+					}                  
+                }
+              }
+            }
+          },
+		  "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "x-next": {
+                "description": "Unauthorized",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+		  "403": {
+            "description": "Forbidden",
+            "headers": {
+              "x-next": {
+                "description": "Forbidden",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+	"/lote/registrar": {
+      "post": {
+        "summary": "Permite registrar un nuevo lote de vacunas",
+        "description": "Permite registrar un nuevo lote de vacunas",
+        "operationId": "registrar",        
+        "tags": [
+          "Lote"
+        ],
+        "parameters": [          
+        ],
+        "responses": {
+          "200": {
+            "description": "Registro de nuevo lote",
+            "headers": {
+              "x-next": {
+                "description": "Registro de nuevo lote",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/LoteResponse"
+					}                  
+                }
+              }
+            }
+          },
+		  "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "x-next": {
+                "description": "Unauthorized",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+		  "403": {
+            "description": "Forbidden",
+            "headers": {
+              "x-next": {
+                "description": "Forbidden",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+	"/lote/modificar": {
+      "post": {
+        "summary": "Permite modificar informacion de un lote",
+        "description": "Permite modificar informacion de un lote",
+        "operationId": "modificar",        
+        "tags": [
+          "Lote"
+        ],
+        "parameters": [          
+        ],
+        "responses": {
+          "200": {
+            "description": "Modificacion de lote",
+            "headers": {
+              "x-next": {
+                "description": "Modificacion de lote",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/LoteResponse"
+					}                  
+                }
+              }
+            }
+          },
+		  "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "x-next": {
+                "description": "Unauthorized",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+		  "403": {
+            "description": "Forbidden",
+            "headers": {
+              "x-next": {
+                "description": "Forbidden",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Error"
+					}                  
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+		"Usuario": {
+			"type": "object",
+			"required": [
+				"id",
+				"nombre",
+				"clave",
+				"fechaRegistro",
+				"usuarioRegistrador",
+				"estado"
+			],
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"nombre": {
+					"type": "string"            
+				},
+				"clave": {
+					"type": "string"            
+				},
+				"descripcion": {
+					"type": "string"            
+				},
+				"fechaRegistro": {
+					"type": "string",
+					"format": "date"
+				},
+				"fechaModificacion": {
+					"type": "string",
+					"format": "date"
+				},
+				"usuarioRegistrador": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"usuarioModificador": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"estado": {
+					"type": "string"
+				}
+			}
+		},
+		"TipoVacuna": {
+			"type": "object",
+			"required": [
+				"id",
+				"nombre",
+				"temperaturaMin",
+				"temperaturaMax",
+				"numeroDosis",
+				"tiempoEntreDosis",
+				"fechaRegistro",
+				"estado"
+			],
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"nombre": {
+					"type": "string"            
+				},
+				"descripcion": {
+					"type": "string"            
+				},
+				"temperaturaMin": {
+					"type": "number",
+					"format": "double"
+				},			
+				"temperaturaMax": {
+					"type": "number",
+					"format": "double"
+				},
+				"numeroDosis": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"tiempoEntreDosis": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"fechaRegistro": {
+					"type": "string",
+					"format": "date"
+				},
+				"fechaModificacion": {
+					"type": "string",
+					"format": "date"
+				},
+				"estado": {
+					"type": "string"
+				},
+				"observacion": {
+					"type": "string"
+				}
+			}
+		},
+		"Lote": {
+			"type": "object",
+			"required": [
+				"id",
+				"tipoVacunaId",
+				"numero",
+				"fechaFabricacion",
+				"fechaExpiracion",
+				"cantidad",
+				"fechaRegistro",		  
+				"estado"
+			],
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"tipoVacunaId": {	    
+					"$ref": "#/components/schemas/TipoVacuna"
+				},
+				"numero": {
+					"type": "string"            
+				},
+				"fechaFabricacion": {
+					"type": "string",
+					"format": "date"
+				},
+				"fechaExpiracion": {
+					"type": "string",
+					"format": "date"
+				},
+				"cantidad": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"fechaIngresoPais": {
+					"type": "string",
+					"format": "date"
+				},
+				"fechaRegistro": {
+					"type": "string",
+					"format": "date"
+				},
+				"estado": {
+					"type": "string"
+				},
+				"observacion": {
+					"type": "string"
+				}
+			}
+		},
+		"StockVacuna": {
+			"type": "object",
+			"required": [
+				"id",
+				"nombre",
+				"cantidadTotal"
+			],
+			"properties": {
+				"id": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"nombre": {
+					"type": "string"            
+				},
+				"cantidadTotal": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"cantidadDisponible": {
+					"type": "integer",
+					"format": "int64"
+				}
+			}
+		},
+		"Error": {
+			"type": "object",
+			"required": [
+			  "status",
+			  "message"
+			],
+			"properties": {
+				"status": {
+					"type": "integer",
+					"format": "int32"
+				},
+				"error": {
+					"type": "string"
+				},
+				"message": {
+					"type": "string"
+				},				
+				"path": {
+					"type": "string"
+				},
+				"timestamp": {
+					"type": "string",
+					"format": "date"
+				},
+			}
+		},
+		"Message": {
+			"type": "object",
+			"required": [
+			  "code",
+			  "description"
+			],
+			"properties": {
+			  "code": {
+				"type": "string"				
+			  },
+			  "description": {
+				"type": "string"
+			  }
+			}
+		},
+		"LoteResponse": {
+			"type": "object",
+			"required": [
+			  "success"			  
+			],
+			"properties": {
+				"success": {
+					"type": "boolean"				
+				},
+				"lote": {
+					"$ref": "#/components/schemas/Lote"
+				},
+				"messages":{				
+					"type": "array",
+					"items": {
+						"$ref": "#/components/schemas/Message"
+					}			
+				}
+			}
+		}
+    },
+    "securitySchemes": {
+      "BasicAuth": {
+        "type": "http",
+        "scheme": "basic"        
+      }
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    }
+  ]
+}
