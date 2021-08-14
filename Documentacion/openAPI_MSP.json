@@ -212,6 +212,16 @@
         "description": "Permite registrar un nuevo lote de vacunas",
         "operationId": "registrar",
         "parameters": [],
+		"requestBody" : {  
+			"required": true,
+			"content": {
+              "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Lote"                  
+                }
+              }
+            }            
+        },
         "responses": {
           "200": {
             "description": "Registro de nuevo lote",
@@ -304,6 +314,16 @@
         "description": "Permite modificar informacion de un lote",
         "operationId": "modificar",
         "parameters": [],
+		"requestBody" : {  
+			"required": true,
+			"content": {
+              "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Lote"                  
+                }
+              }
+            }            
+        },
         "responses": {
           "200": {
             "description": "Modificacion de lote",
@@ -323,6 +343,108 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/LoteResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "x-next": {
+                "description": "Unauthorized",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "x-next": {
+                "description": "Forbidden",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+	 "/lote/eliminar": {
+      "put": {
+        "tags": [
+          "Lote"
+        ],
+        "summary": "Permite eliminar un lote",
+        "description": "Permite eliminar un lote",
+        "operationId": "eliminar",
+        "parameters": [],
+		"requestBody" : {  
+			"required": true,
+			"content": {
+              "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Lote"                  
+                }
+              }
+            }            
+        },
+        "responses": {
+          "200": {
+            "description": "Eliminacion de lote",
+            "headers": {
+              "x-next": {
+                "description": "Eliminacion de lote",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ResponseBase"
                   }
                 }
               }
@@ -618,6 +740,23 @@
           },
           "lote": {
             "$ref": "#/components/schemas/Lote"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          }
+        }
+      },
+	  "ResponseBase": {
+        "required": [
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
           },
           "messages": {
             "type": "array",

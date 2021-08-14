@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.msp.kg.dto.LoteResponse;
+import com.msp.kg.dto.ResponseBase;
 import com.msp.kg.model.Lote;
 import com.msp.kg.repository.ILoteRepo;
 import com.msp.kg.service.ILoteService;
@@ -48,8 +49,13 @@ public class RestLoteController {
 		return service.modificar(lote);
 	}
 
-	@DeleteMapping(name = "/eliminar/{id}")
-	public void eliminar(@PathVariable("id") Integer id) {
-		repo.deleteById(id);
+	@DeleteMapping(name = "/eliminarTodo/{id}")
+	public ResponseBase eliminarTodo(@PathVariable("id") Integer id) {
+		return service.eliminarTodo(id);
+	}
+
+	@PutMapping("/eliminar")
+	public ResponseBase eliminar(@RequestBody Lote lote) {
+		return service.eliminar(lote);
 	}
 }

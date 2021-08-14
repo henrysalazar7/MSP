@@ -15,5 +15,7 @@ public interface ILoteService {
 
 	LoteResponse modificar(Lote lote);
 
-	ResponseBase eliminar(int id);
+	ResponseBase eliminarTodo(int id);
+
+	ResponseBase eliminar(Lote lote);
 }
