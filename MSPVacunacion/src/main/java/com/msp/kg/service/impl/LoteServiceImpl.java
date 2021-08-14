@@ -19,6 +19,7 @@ import com.msp.kg.repository.ILoteRepo;
 import com.msp.kg.repository.ITipoVacunaRepo;
 import com.msp.kg.service.ILoteService;
 import com.msp.kg.service.IStockVacuna;
+import com.msp.kg.utils.Constants;
 
 @Service
 public class LoteServiceImpl implements ILoteService {
@@ -30,6 +31,16 @@ public class LoteServiceImpl implements ILoteService {
 
 	@Autowired
 	private ITipoVacunaRepo tipoVacunaRepo;
+
+	@Override
+	public List<Lote> listarTodo() {
+		return repo.findAll();
+	}
+
+	@Override
+	public List<IStockVacuna> listarInventario() {
+		return repo.listarInventario();
+	}
 
 	@Override
 	public LoteResponse registrar(Lote lote) {
@@ -58,11 +69,6 @@ public class LoteServiceImpl implements ILoteService {
 			LOG.debug("Finaliza metodo registar");
 		}
 		return response;
-	}
-
-	@Override
-	public List<Lote> listarTodo() {
-		return repo.findAll();
 	}
 
 	@Override
@@ -102,8 +108,6 @@ public class LoteServiceImpl implements ILoteService {
 			} else {
 				VacunacionException.manageError(response, ErrorEnum.ERROR_1001);
 			}
-			return response;
-
 		} catch (Exception ex) {
 			VacunacionException.manageException(ex, response);
 		} finally {
@@ -113,13 +117,55 @@ public class LoteServiceImpl implements ILoteService {
 	}
 
 	@Override
-	public ResponseBase eliminar(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseBase eliminarTodo(int id) {
+		LOG.debug("Inicia metodo eliminar");
+		ResponseBase response = new ResponseBase();
+		try {
+			Optional<Lote> loteResponseOptional = repo.findById(id);
+			if (loteResponseOptional.isPresent()) {
+				//repo.deleteById(id);				
+				response.setSuccess(true);
+			} else {
+				VacunacionException.manageError(response, ErrorEnum.ERROR_1001);
+			}
+		} catch (Exception ex) {
+			VacunacionException.manageException(ex, response);
+		} finally {
+			LOG.debug("Finaliza metodo eliminar");
+		}
+		return response;
 	}
 
 	@Override
-	public List<IStockVacuna> listarInventario() {
-		return repo.listarInventario();
+	public ResponseBase eliminar(Lote lote) {
+		ResponseBase response = new ResponseBase();
+
+		try {
+			LOG.debug("Inicia metodo eliminar");
+			// VALIDAR SI EXISTE LOTE
+			Optional<Lote> loteResponseOptional = repo.findById(lote.getId());
+			if (loteResponseOptional.isPresent()) {
+				Lote loteToUpdate = loteResponseOptional.get();
+				LOG.info("LOTE A ELIMINAR --> " + loteToUpdate.getId());
+
+				loteToUpdate.setEstado(Constants.DELETED_STATUS);
+				loteToUpdate.setFechaModificacion(new Date());
+
+				// MODIFICAR LOTE EN BASE
+				Lote loteModificado = repo.save(loteToUpdate);
+
+				if (loteModificado != null) {
+					response.setSuccess(true);
+				}
+
+			} else {
+				VacunacionException.manageError(response, ErrorEnum.ERROR_1001);
+			}
+		} catch (Exception ex) {
+			VacunacionException.manageException(ex, response);
+		} finally {
+			LOG.debug("Finaliza metodo eliminar");
+		}
+		return response;
 	}
 }
