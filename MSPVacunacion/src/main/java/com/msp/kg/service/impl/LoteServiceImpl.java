@@ -48,18 +48,26 @@ public class LoteServiceImpl implements ILoteService {
 
 		try {
 			LOG.debug("Inicia metodo registar");
-			// VALIDAR SI EXISTE TIPO DE VACUNA
-			Optional<TipoVacuna> tipoVacuna = tipoVacunaRepo.findById(lote.getTipoVacunaId().getId());
-			if (tipoVacuna.isPresent()) {
-				LOG.info(tipoVacuna.get().getNombre());
-				Lote loteResponse = repo.save(lote);
-				if (loteResponse != null) {
-					response.setSuccess(true);
-					response.setLote(loteResponse);
-				}
 
+			// VALIDAR SI LOTE NO EXISTE
+			Lote loteValidar = repo.findByNumero(lote.getNumero());
+			if (loteValidar == null) {
+
+				// VALIDAR SI EXISTE TIPO DE VACUNA
+				Optional<TipoVacuna> tipoVacuna = tipoVacunaRepo.findById(lote.getTipoVacunaId().getId());
+				if (tipoVacuna.isPresent()) {
+					LOG.info(tipoVacuna.get().getNombre());
+					Lote loteResponse = repo.save(lote);
+					if (loteResponse != null) {
+						response.setSuccess(true);
+						response.setLote(loteResponse);
+					}
+
+				} else {
+					VacunacionException.manageError(response, ErrorEnum.ERROR_1000);
+				}
 			} else {
-				VacunacionException.manageError(response, ErrorEnum.ERROR_1000);
+				VacunacionException.manageError(response, ErrorEnum.ERROR_1007);
 			}
 			return response;
 
@@ -123,7 +131,7 @@ public class LoteServiceImpl implements ILoteService {
 		try {
 			Optional<Lote> loteResponseOptional = repo.findById(id);
 			if (loteResponseOptional.isPresent()) {
-				//repo.deleteById(id);				
+				// repo.deleteById(id);
 				response.setSuccess(true);
 			} else {
 				VacunacionException.manageError(response, ErrorEnum.ERROR_1001);

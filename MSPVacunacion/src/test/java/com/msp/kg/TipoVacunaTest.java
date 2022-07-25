@@ -17,7 +17,7 @@ class TipoVacunaTest {
 
 	@Test
 	public void crearTest() {
-		TipoVacuna tipo = new TipoVacuna();
+		/*TipoVacuna tipo = new TipoVacuna();
 		tipo.setNombre("PFIZER");
 		tipo.setDescripcion("Vacuna Pfizer");
 		tipo.setEstado("A");
@@ -56,9 +56,9 @@ class TipoVacunaTest {
 
 		TipoVacuna retornoAz = repo.save(tipoAz);
 		assertTrue(retornoAz.getNombre().equals(tipoAz.getNombre()));
-
+*/
 		TipoVacuna tipoJoh = new TipoVacuna();
-		tipoJoh.setNombre("JOHNSON");
+		tipoJoh.setNombre("JOHNSON 1");
 		tipoJoh.setDescripcion("Vacuna Johnson & Johnson");
 		tipoJoh.setEstado("A");
 		tipoJoh.setLaboratorio("Johnson & Johnson");
