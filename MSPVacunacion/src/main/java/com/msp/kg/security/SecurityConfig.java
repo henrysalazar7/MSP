@@ -45,18 +45,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.logout().permitAll()
 				.and().csrf().disable();
-		
-		
-		/*
-		http.authorizeRequests().antMatchers(ResourceList.RES_PUBLIC).permitAll()				
-		.antMatchers(ResourceList.RES_ADMIN).hasRole(RolEnum.ADMIN.toString())
-		.antMatchers(ResourceList.RES_CIUDADANO).hasRole(RolEnum.CIUDADANO.toString())
-		.antMatchers(ResourceList.RES_CIUDADANO).access("hasRole('"+RolEnum.CIUDADANO+"')")
-		.anyRequest().authenticated().and().httpBasic()
-		.and()
-		.formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/menu").failureUrl("/login?error=true").usernameParameter("username").passwordParameter("password")
-		.and()
-		.logout().permitAll().logoutSuccessUrl("/login?logout"); 
-		*/
 	}
 }

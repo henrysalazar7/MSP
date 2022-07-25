@@ -16,4 +16,6 @@ public interface ILoteRepo extends JpaRepository<Lote, Integer> {
 			+ "where lo.lo_estado = 'A' and tv.tv_estado = 'A'\r\n"
 			+ "group by tv.tv_id", nativeQuery = true)
 	List<IStockVacuna> listarInventario();
+	
+	Lote findByNumero(String numero);
 }

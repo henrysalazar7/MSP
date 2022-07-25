@@ -508,6 +508,200 @@
           }
         }
       }
+    },
+	"/ciudadano/listar": {
+      "get": {
+        "tags": [
+          "Ciudadano"
+        ],
+        "summary": "Permite listar todos los ciudadanos",
+        "description": "Permite listar todos los ciudadanos",
+        "operationId": "listar",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Respuesta de todos los ciudadanos",
+            "headers": {
+              "x-next": {
+                "description": "Respuesta de todos los ciudadanos",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ciudadano"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "x-next": {
+                "description": "Unauthorized",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "x-next": {
+                "description": "Forbidden",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+	"/ciudadano/registrar": {
+      "post": {
+        "tags": [
+          "Ciudadano"
+        ],
+        "summary": "Permite registrar un nuevo ciudadano",
+        "description": "Permite registrar un nuevo ciudadano",
+        "operationId": "registrar",
+        "parameters": [],
+		"requestBody" : {  
+			"required": true,
+			"content": {
+              "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Ciudadano"                  
+                }
+              }
+            }            
+        },
+        "responses": {
+          "200": {
+            "description": "Registro de nuevo ciudadano",
+            "headers": {
+              "x-next": {
+                "description": "Registro de nuevo ciudadano",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CiudadanoResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "x-next": {
+                "description": "Unauthorized",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "x-next": {
+                "description": "Forbidden",
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Error"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -663,6 +857,64 @@
           }
         }
       },
+	  "Ciudadano": {
+        "required": [
+          "id",
+          "cedula",
+          "nombres",
+          "primerApellido",
+          "segundoApellido",
+          "fechaNacimiento",
+          "correo",
+          "enfermedad",
+		  "telefonoMovil",
+		  "estado"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          },
+          "cedula": {
+            "type": "string"
+          },
+		  "nombres": {
+            "type": "string"
+          },
+		  "primerApellido": {
+            "type": "string"
+          },
+		  "segundoApellido": {
+            "type": "string"
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date"
+          },
+		  "correo": {
+            "type": "string"            
+          },
+		  "enfermedad": {
+            "type": "string"            
+          },
+		  "telefonoFijo": {
+            "type": "string"            
+          },
+		  "telefonoMovil": {
+            "type": "string"            
+          },
+          "estado": {
+            "type": "string"
+          },
+          "observacion": {
+            "type": "string"
+          }
+        }
+      },
       "StockVacuna": {
         "required": [
           "cantidadTotal",
@@ -740,6 +992,26 @@
           },
           "lote": {
             "$ref": "#/components/schemas/Lote"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Message"
+            }
+          }
+        }
+      },
+	  "CiudadanoResponse": {
+        "required": [
+          "success"
+        ],
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "ciudadano": {
+            "$ref": "#/components/schemas/Ciudadano"
           },
           "messages": {
             "type": "array",

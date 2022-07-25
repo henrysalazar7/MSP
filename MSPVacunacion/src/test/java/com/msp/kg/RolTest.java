@@ -32,17 +32,17 @@ class RolTest {
 			us = repoUsuario.findByNombre(USUARIO_ADMIN);
 		}
 		*/
-		Rol rol = new Rol();
+		/*Rol rol = new Rol();
 		rol.setNombre("ADMIN");
 		rol.setDescripcion("Rol Administrador");
 		rol.setEstado("A");
 		rol.setUsuarioRegistrador(us.getId());
 		Rol retorno = repo.save(rol);
-		assertTrue(retorno.getNombre().equals(rol.getNombre()));
-
+		//assertTrue(retorno.getNombre().equals(rol.getNombre()));
+*/
 		Rol rolCiu = new Rol();
-		rolCiu.setNombre("CIUDADANO");
-		rolCiu.setDescripcion("Rol Ciudadano");
+		rolCiu.setNombre("CIUDADANO 1");
+		rolCiu.setDescripcion("Rol Ciudadano 1");
 		rolCiu.setEstado("A");
 		rolCiu.setUsuarioRegistrador(us.getId());
 		Rol retornoCiu = repo.save(rolCiu);
